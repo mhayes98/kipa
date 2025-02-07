@@ -17,6 +17,12 @@ public class UserController {
         return "Hello, " + userID + "!";
     }
 
+    @DeleteMapping("/users/delete-user")
+    public String deleteUser(@RequestParam String userID) {
+        // Placeholder - Delete user from DB
+        return userID + " has been deleted.";
+    }
+
     @GetMapping("/spotify-auth")
     public String spotifyAuthConnection() {
         // Placeholder - Authenticate user with Spotify OAuth
