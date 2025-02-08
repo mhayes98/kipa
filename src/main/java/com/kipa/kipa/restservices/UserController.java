@@ -27,18 +27,6 @@ public class UserController {
         return userID + " has been deleted.";
     }
 
-    @GetMapping("/spotify-auth")
-    public String spotifyAuthConnection() {
-        // Placeholder - Authenticate user with Spotify OAuth
-        return "Redirecting to: SpotifyAuthURL";
-    }
-
-    @GetMapping("/spotify-callback")
-    public String spotifyAuthCallback() {
-        // Placeholder - Exchange auth code for access token
-    return "Redirecting to: /user/profile";
-    }
-
     @PostMapping("/users/{userID}/albums/add-tag")
     public String addAlbumTag(@RequestParam String albumID) {
         // Placeholder - Add tag to album
