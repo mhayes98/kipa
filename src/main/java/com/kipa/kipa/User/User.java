@@ -1,4 +1,4 @@
-package com.kipa.kipa;
+package com.kipa.kipa.User;
 
 import jakarta.persistence.*;
 
@@ -19,7 +19,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = "User";
+        this.role = "com/kipa/kipa/User";
     }
 
     @Override
