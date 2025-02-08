@@ -1,4 +1,4 @@
 package com.kipa.kipa.restservices;
 
-public record User() {
+public record UserServices() {
 }
