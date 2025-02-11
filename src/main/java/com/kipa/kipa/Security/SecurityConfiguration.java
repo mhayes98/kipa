@@ -75,6 +75,7 @@ public class SecurityConfiguration {
     // *** This will need to be heavily refactored to load real users from the DB
     @Bean
     public UserDetailsService userDetailsService() {
+        // loadUserByUsername <--
         UserDetails userDetails = User.withDefaultPasswordEncoder()
                 .username("user")
                 .password("password")
