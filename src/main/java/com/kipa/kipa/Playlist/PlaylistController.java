@@ -1,4 +1,4 @@
-package com.kipa.kipa.restservices;
+package com.kipa.kipa.Playlist;
 
 import org.springframework.web.bind.annotation.*;
 
