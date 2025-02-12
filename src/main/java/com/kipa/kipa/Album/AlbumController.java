@@ -1,4 +1,4 @@
-package com.kipa.kipa.restservices;
+package com.kipa.kipa.Album;
 
 import org.springframework.web.bind.annotation.*;
 
