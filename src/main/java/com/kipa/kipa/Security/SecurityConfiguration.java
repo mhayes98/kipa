@@ -25,8 +25,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-
-    // Security configuration for API calls
+// Security configuration for API calls
     // All requests under 'api/open/**" are permitted
     // All other requests require authentication
     @Bean
@@ -46,7 +45,10 @@ public class SecurityConfiguration {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers("/images/**", "/js/**");
+
     }
+
+
 
 
     /*

@@ -12,16 +12,18 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    @Bean
+ /*
+ @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((requests) -> requests
                 .anyRequest().permitAll()  // Allows all requests to bypass security
                                             // This is for testing purposes only
             );
-
         return http.build();
     }
+
+  */
 
     /*
     @Bean
@@ -29,4 +31,5 @@ public class WebSecurityConfig {
         return new InMemoryUserDetailsManager();
     }
      */
+
 }
