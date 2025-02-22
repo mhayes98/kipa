@@ -12,7 +12,6 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String role;
 
     protected User() {}
 
@@ -20,7 +19,6 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = "User";
     }
 
     @Override
@@ -44,10 +42,6 @@ public class User {
         return email;
     }
 
-    public String getRole() {
-        return role;
-    }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -64,7 +58,4 @@ public class User {
         this.email = email;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
 }

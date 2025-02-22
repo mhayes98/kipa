@@ -1,5 +1,6 @@
 package com.kipa.kipa.User;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 // ****
@@ -15,10 +16,12 @@ public class UserController {
 
     //private final AtomicLong counter = new AtomicLong();
 
+    @Autowired
+    UserService service;
+
     @PostMapping("/users/add-user")
-    public String addUser(@RequestParam String userID) {
-        // Placeholder - Add user to DB
-        return "Hello, " + userID + "!";
+    public void addUser(@RequestBody User user) {
+        service.addUser(user);
     }
 
     @DeleteMapping("/users/delete-user")
