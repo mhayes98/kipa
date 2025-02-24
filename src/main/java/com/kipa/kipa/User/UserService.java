@@ -16,6 +16,10 @@ public class UserService {
         userRepo.save(user);
     }
 
+    public void deleteUser(int userID) {
+        userRepo.deleteById(userID);
+    }
+
     public Optional<User> getUserByID(int userID) {
         return userRepo.findById(userID);
     }

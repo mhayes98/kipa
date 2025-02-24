@@ -1,11 +1,9 @@
 package com.kipa.kipa.Security;
 
-import org.aspectj.apache.bcel.classfile.Module;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -31,12 +29,13 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain basicAuthSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .securityMatcher("/api/**")
+                .securityMatcher("/placeholder")
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers("api/open/**").permitAll();
                     request.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .csrf(customizer -> customizer.disable())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
@@ -47,8 +46,6 @@ public class SecurityConfiguration {
         return web -> web.ignoring().requestMatchers("/images/**", "/js/**");
 
     }
-
-
 
 
     /*

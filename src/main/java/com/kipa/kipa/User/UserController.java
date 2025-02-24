@@ -1,6 +1,8 @@
 package com.kipa.kipa.User;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 // ****
@@ -18,6 +20,14 @@ public class UserController {
 
     @Autowired
     UserService service;
+
+    /*
+    @GetMapping("/csrf")
+    public CsrfToken getCsrfToken(HttpServletRequest request) {
+        return (CsrfToken) request.getAttribute("_csrf");
+    }
+
+     */
 
     @PostMapping("/users/add-user")
     public void addUser(@RequestBody User user) {
