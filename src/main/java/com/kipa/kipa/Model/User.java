@@ -1,4 +1,4 @@
-package com.kipa.kipa.User;
+package com.kipa.kipa.Model;
 
 import jakarta.persistence.*;
 

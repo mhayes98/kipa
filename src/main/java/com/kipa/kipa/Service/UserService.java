@@ -1,5 +1,7 @@
-package com.kipa.kipa.User;
+package com.kipa.kipa.Service;
 
+import com.kipa.kipa.Model.User;
+import com.kipa.kipa.Repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

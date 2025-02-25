@@ -1,4 +1,4 @@
-package com.kipa.kipa.Album;
+package com.kipa.kipa.Model;
 
 public record Album() {
 }

@@ -1,5 +1,6 @@
-package com.kipa.kipa.Album;
+package com.kipa.kipa.Controller;
 
+import com.kipa.kipa.Model.Album;
 import org.springframework.web.bind.annotation.*;
 
 // ****

@@ -1,4 +1,4 @@
-package com.kipa.kipa.Auth;
+package com.kipa.kipa.Controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
