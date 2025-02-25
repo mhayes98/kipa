@@ -27,11 +27,14 @@ public class AuthController {
     }
         */
 
+    /*
     private final AuthenticationManager authenticationManager;
 
     public AuthController(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
+
+     */
 
     /* Auth logic:
         - UsernamePasswordAuthenticationToken is sent to AuthenticationManager (abstracted)
@@ -39,6 +42,8 @@ public class AuthController {
         - DaoAuthenticationProvider calls UserDetailsService to fetch user details from the DB
         - Authentication success/failure is sent back to this endpoint
      */
+
+    /*
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody LoginRequest loginRequest) {
         Authentication authenticationRequest =
@@ -50,4 +55,6 @@ public class AuthController {
     }
 
     public record LoginRequest(String username, String password) {}
+
+     */
 }

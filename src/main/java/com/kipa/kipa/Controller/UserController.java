@@ -21,18 +21,23 @@ public class UserController {
     @Autowired
     UserService service;
 
-    /*
-    @GetMapping("/csrf")
-    public CsrfToken getCsrfToken(HttpServletRequest request) {
-        return (CsrfToken) request.getAttribute("_csrf");
+    @PostMapping("/register")
+    public void register(@RequestBody User user) {
+        service.registerUser(user);
     }
 
-     */
+    @PostMapping("/login")
+    public String login(@RequestBody User user) {
+        return service.verifyUser(user);
+    }
 
+    /*
     @PostMapping("/users/add-user")
     public void addUser(@RequestBody User user) {
         service.addUser(user);
     }
+
+     */
 
     @DeleteMapping("/users/delete-user")
     public String deleteUser(@RequestParam String userID) {

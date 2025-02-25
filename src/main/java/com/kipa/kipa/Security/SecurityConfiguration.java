@@ -1,5 +1,6 @@
 package com.kipa.kipa.Security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,44 +10,30 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+
 // Security configuration for API calls
-    // All requests under 'api/open/**" are permitted
-    // All other requests require authentication
     @Bean
     public SecurityFilterChain basicAuthSecurityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .securityMatcher("/placeholder")
-                .authorizeHttpRequests(request -> {
-                    request.requestMatchers("api/open/**").permitAll();
-                    request.anyRequest().authenticated();
-                })
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers("register", "login").permitAll()
+                        .anyRequest().authenticated()
+                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(customizer -> customizer.disable())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
-
-    // Ignore static directors - images, JS files, etc
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().requestMatchers("/images/**", "/js/**");
-
-    }
-
 
     /*
         Below contains the logic for user authentication - NOTE: This will need to be refactored
@@ -65,6 +52,9 @@ public class SecurityConfiguration {
         _________________________________________________________________________
     */
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     // Instantiates DaoAuthenticationObject for authorization comparison
     // Sets hashing algorithim to BCrypt
     // userDetailsService retrieves user from the DB
@@ -72,9 +62,10 @@ public class SecurityConfiguration {
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setPasswordEncoder(new BCryptPasswordEncoder(12));
-        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setUserDetailsService(userDetailsService);
         return authProvider;
     }
+
 
     // Retrieves default AuthenticationManager configuration
     @Bean
@@ -82,17 +73,6 @@ public class SecurityConfiguration {
         return config.getAuthenticationManager();
     }
 
-    // *** This will need to be heavily refactored to load real users from the DB
-    @Bean
-    public UserDetailsService userDetailsService() {
-        // loadUserByUsername <--
-        UserDetails userDetails = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("password")
-                .build();
-
-        return new InMemoryUserDetailsManager(userDetails);
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
