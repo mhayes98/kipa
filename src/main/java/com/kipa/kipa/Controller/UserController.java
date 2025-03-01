@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class UserController {
 
-    // The line below is commented for future educational use.
-    // An atomic long is a thread-safe way to handle frequent updates
-        // ex. multiple clients updating the value at once if it were to track the number of times an API was called
-
-    //private final AtomicLong counter = new AtomicLong();
 
     @Autowired
     UserService service;
