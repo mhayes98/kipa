@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 public class AlbumController {
 
     @GetMapping("/albums")
-    public Album getAlbumDetails(@RequestParam Album albumID) {
+    public String getAlbumDetails() {
         // Placeholder - Get album details from Spotify / Discogs API (?)
-        return albumID;
+        return "GOOD";
     }
 }
