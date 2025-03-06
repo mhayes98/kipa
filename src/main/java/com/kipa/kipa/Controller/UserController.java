@@ -18,6 +18,8 @@ public class UserController {
 
     @PostMapping("/register")
     public void register(@RequestBody User user) {
+        // Refactor to account for unique usernames
+        // OR add ID to usernames (ex. Matt#1)
         service.registerUser(user);
     }
 

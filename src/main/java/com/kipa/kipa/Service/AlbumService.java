@@ -13,21 +13,12 @@ public class AlbumService {
     //@Autowired
     //AlbumUserRepository albumUserRepo;
 
-
-    // ____________________________________________________
-    // Look up SecurityContextHolder to verify current user
-    // ____________________________________________________
-
-    public void tagAlbum(Album album, String tag) {
-        /*
-        Logic:
-            Check if Album is in the DB, if not --> Add it
-            If Album row not in UserAlbums --> Add it
-            Add tag to Album in UserAlbum
-         */
+    public void addAlbum(Album album) {
+        albumRepo.save(album);
     }
 
-    public void removeTag(Album album, String tag) {
+    public void deleteAlbum(Album album) {
+        albumRepo.delete(album);
     }
 
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 // UserDetailService is required by Spring Security to load user details from a DB
 @Service
-public class MyUserDetailsService  implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepo;
