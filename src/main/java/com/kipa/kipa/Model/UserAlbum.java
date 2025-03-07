@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-@Table(name="user-albums")
+@Table(name="user_albums")
 public class UserAlbum {
     // Composite key made of userID & albumID - acts as separate values in the table (2 col)
     @EmbeddedId
@@ -13,6 +13,15 @@ public class UserAlbum {
     private String status;
     private String[] tags;
     private String notes;
+
+    public UserAlbum(UserAlbumID id, String status, String[] tags, String notes) {
+        this.id = id;
+        this.status = status;
+        this.tags = tags;
+        this.notes = notes;
+    }
+
+    public UserAlbum() {}
 
     public UserAlbumID getId() {
         return id;

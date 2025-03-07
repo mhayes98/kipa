@@ -9,6 +9,11 @@ public class UserAlbumID implements Serializable {
     private String userID;
     private String albumID;
 
+    public UserAlbumID(String userID, String albumID) {
+        this.userID = userID;
+        this.albumID = albumID;
+    }
+
     public String getUserID() {
         return userID;
     }
