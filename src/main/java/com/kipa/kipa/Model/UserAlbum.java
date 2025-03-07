@@ -1,34 +1,25 @@
 package com.kipa.kipa.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 
 @Entity
 @Table(name="user-albums")
 public class UserAlbum {
-    @Id
-    private String userID;
+    // Composite key made of userID & albumID - acts as separate values in the table (2 col)
+    @EmbeddedId
+    private UserAlbumID id;
 
-    private String albumID;
     private String status;
     private String[] tags;
     private String notes;
 
-    public String getUserID() {
-        return userID;
+    public UserAlbumID getId() {
+        return id;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
-    public String getAlbumID() {
-        return albumID;
-    }
-
-    public void setAlbumID(String albumID) {
-        this.albumID = albumID;
+    public void setId(UserAlbumID id) {
+        this.id = id;
     }
 
     public String getStatus() {
