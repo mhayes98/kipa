@@ -1,6 +1,7 @@
 package com.kipa.kipa.Model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 
 @Entity
@@ -14,8 +15,20 @@ public class UserAlbum {
     private String[] tags;
     private String notes;
 
+    @Transient
+    private String albumID;
+
     public UserAlbum(UserAlbumID id, String status, String[] tags, String notes) {
         this.id = id;
+        this.status = status;
+        this.tags = tags;
+        this.notes = notes;
+    }
+
+    // This constructor creates a UserAlbum object while only getting an albumID
+    // Currently in place due to the editTag call in UserAlbumController
+    public UserAlbum (String albumID, String status, String[] tags, String notes ) {
+        this.albumID = albumID;
         this.status = status;
         this.tags = tags;
         this.notes = notes;
@@ -53,5 +66,13 @@ public class UserAlbum {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getAlbumID() {
+        return albumID;
+    }
+
+    public void setAlbumID(String albumID) {
+        this.albumID = albumID;
     }
 }

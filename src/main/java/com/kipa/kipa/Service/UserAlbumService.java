@@ -14,19 +14,27 @@ public class UserAlbumService {
     @Autowired
     UserAlbumRepository userAlbumRepo;
 
-    public void addUserAlbum(String albumID) {
-        // Retrieves username of the current user, then creates the composite key object of username + albumID
-        String userID = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        UserAlbumID userAlbumID = new UserAlbumID(userID, albumID);
+    public String addUserAlbum(UserAlbum userAlbum) {
 
-        UserAlbum userAlbum = new UserAlbum();
-        userAlbum.setId(userAlbumID);
+        userAlbumRepo.save(userAlbum);
+
+        return userAlbum.getStatus();
 
         // Other values will be sent to this object in the form of a @RequestBody
         // These values will then be used to create a UserAlbum object
     }
 
     public void changeStatus(String albumID, String status){
+        // Find UserAlbum using??? UserAlbumID?
+        // Replace current status
+        String userID = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        UserAlbumID userAlbumID = new UserAlbumID(userID, albumID);
+    }
 
+    public void updateTags(String albumID, String[] tags) {
+        // Find UserAlbum using??? UserAlbumID?
+        // Replace entire tag array with new array
+        String userID = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        UserAlbumID userAlbumID = new UserAlbumID(userID, albumID);
     }
 }

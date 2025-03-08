@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface UserAlbumRepository extends JpaRepository<UserAlbum, UserAlbumID> {
-    List<UserAlbumID> findByIdUserID(String userID);
-    List<UserAlbumID> findByAlbumID(String albumID);
+    //List<UserAlbumID> findByIdUserID(String userID);
+    //List<UserAlbumID> findByAlbumID(String albumID);
 }

@@ -14,6 +14,8 @@ public class UserAlbumID implements Serializable {
         this.albumID = albumID;
     }
 
+    public UserAlbumID() {}
+
     public String getUserID() {
         return userID;
     }
