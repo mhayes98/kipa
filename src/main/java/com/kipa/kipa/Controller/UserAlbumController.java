@@ -24,6 +24,8 @@ public class UserAlbumController {
                 Manually create a UserAlbumID from this albumID
                 Create a complete UserAlbum object using getters from original object
          */
+
+
         String userID = ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
         String albumID = userAlbum.getAlbumID();
 

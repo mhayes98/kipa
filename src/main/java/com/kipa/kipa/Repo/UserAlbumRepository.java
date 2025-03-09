@@ -11,6 +11,8 @@ import java.util.List;
 
 @Repository
 public interface UserAlbumRepository extends JpaRepository<UserAlbum, UserAlbumID> {
-    //List<UserAlbumID> findByIdUserID(String userID);
-    //List<UserAlbumID> findByAlbumID(String albumID);
+    // --- Maybe because of the obj? Should be String?
+    //List<String> findByUserID(String userID);
+    //List<String> findByAlbumID(String albumID);
+    //UserAlbumID findByUserIDAndAlbumID(String userID, String albumID);
 }
