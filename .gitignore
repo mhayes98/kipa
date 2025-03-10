@@ -35,4 +35,4 @@ build/
 ### ENV
 .env
 src/main/resources/
-src/test/resources/
+src/main/resources/application-test.properties
