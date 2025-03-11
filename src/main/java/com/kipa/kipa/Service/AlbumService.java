@@ -10,8 +10,6 @@ public class AlbumService {
 
     @Autowired
     AlbumRepository albumRepo;
-    //@Autowired
-    //AlbumUserRepository albumUserRepo;
 
     public void addAlbum(Album album) {
         albumRepo.save(album);

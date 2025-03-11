@@ -1,11 +1,9 @@
 package com.kipa.kipa.Controller;
 
 import com.kipa.kipa.Model.UserAlbum;
-import com.kipa.kipa.Model.UserAlbumID;
-import com.kipa.kipa.Model.UserPrincipal;
+import com.kipa.kipa.Model.UserAlbumStatusRequest;
 import com.kipa.kipa.Service.UserAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,10 +14,23 @@ public class UserAlbumController {
     @Autowired
     UserAlbumService service;
 
-    // Change call name/purpose - this adds the UserAlbum object
-    @PostMapping("/tag")
+    @PostMapping("/user-album")
     public void editTags(@RequestBody UserAlbum userAlbum) {
         service.addUserAlbum(userAlbum);
     }
 
+    @PostMapping("/status")
+    public void editStatus(@RequestBody UserAlbumStatusRequest userAlbumStatusRequest) {
+        service.editStatus(userAlbumStatusRequest);
+    }
+
+    @PostMapping("/tags")
+    public void editTags(@RequestBody UserAlbumStatusRequest userAlbumStatusRequest) {
+        service.editTags(userAlbumStatusRequest);
+    }
+
+    @PostMapping("/notes")
+    public void editNotes(@RequestBody UserAlbumStatusRequest userAlbumStatusRequest) {
+        service.editNotes(userAlbumStatusRequest);
+    }
 }

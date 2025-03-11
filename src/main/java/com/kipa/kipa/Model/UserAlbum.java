@@ -1,7 +1,8 @@
 package com.kipa.kipa.Model;
 
 import jakarta.persistence.*;
-import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.List;
 
 
 @Entity
@@ -12,7 +13,7 @@ public class UserAlbum {
     private UserAlbumID id;
 
     private String status;
-    private String[] tags;
+    private List<String> tags;
     private String notes;
 
     @Transient
@@ -21,7 +22,7 @@ public class UserAlbum {
     public UserAlbum(UserAlbumID id, String status, String[] tags, String notes) {
         this.id = id;
         this.status = status;
-        this.tags = tags;
+        this.tags = List.of(tags);
         this.notes = notes;
     }
 
@@ -30,7 +31,7 @@ public class UserAlbum {
     public UserAlbum (String albumID, String status, String[] tags, String notes ) {
         this.albumID = albumID;
         this.status = status;
-        this.tags = tags;
+        this.tags = List.of(tags);
         this.notes = notes;
     }
 
@@ -52,11 +53,11 @@ public class UserAlbum {
         this.status = status;
     }
 
-    public String[] getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(String[] tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
