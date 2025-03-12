@@ -3,7 +3,6 @@ package com.kipa.kipa.Model;
 
 // This class exists for the API calls in UserAlbumController / UserAlbumService
 
-import java.util.Arrays;
 import java.util.List;
 
 public class UserAlbumStatusRequest {

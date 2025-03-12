@@ -6,6 +6,8 @@ import com.kipa.kipa.Repo.UserAlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 
 @Service
 public class UserAlbumService {
@@ -20,8 +22,13 @@ public class UserAlbumService {
     public void editStatus(UserAlbumStatusRequest userAlbumStatusRequest){
         userAlbumRepo.findByIdUserIDAndIdAlbumID(userAlbumStatusRequest.getUserID(), userAlbumStatusRequest.getAlbumID())
                 .ifPresent(userAlbum -> {
-                    userAlbum.setStatus(userAlbumStatusRequest.getStatus());
-                    userAlbumRepo.save(userAlbum);
+                    if (Objects.equals(userAlbumStatusRequest.getStatus(), "")) {
+                        userAlbumRepo.delete(userAlbum);
+                    }
+                    else {
+                        userAlbum.setStatus(userAlbumStatusRequest.getStatus());
+                        userAlbumRepo.save(userAlbum);
+                    }
                 });
     }
 

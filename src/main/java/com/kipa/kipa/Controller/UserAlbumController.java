@@ -5,6 +5,7 @@ import com.kipa.kipa.Model.UserAlbumStatusRequest;
 import com.kipa.kipa.Service.UserAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,12 +25,12 @@ public class UserAlbumController {
         service.editStatus(userAlbumStatusRequest);
     }
 
-    @PostMapping("/tags")
+    @PutMapping("/tags")
     public void editTags(@RequestBody UserAlbumStatusRequest userAlbumStatusRequest) {
         service.editTags(userAlbumStatusRequest);
     }
 
-    @PostMapping("/notes")
+    @PutMapping("/notes")
     public void editNotes(@RequestBody UserAlbumStatusRequest userAlbumStatusRequest) {
         service.editNotes(userAlbumStatusRequest);
     }
