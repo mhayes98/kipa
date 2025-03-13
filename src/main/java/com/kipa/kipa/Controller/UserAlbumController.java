@@ -25,7 +25,7 @@ public class UserAlbumController {
         service.editStatus(userAlbumStatusRequest);
     }
 
-    @PutMapping("/tags")
+    @PutMapping("/tag")
     public void editTags(@RequestBody UserAlbumStatusRequest userAlbumStatusRequest) {
         service.editTags(userAlbumStatusRequest);
     }

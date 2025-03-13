@@ -1,7 +1,9 @@
 package com.kipa.kipa.Service;
 
+import com.kipa.kipa.Model.Album;
 import com.kipa.kipa.Model.UserAlbum;
 import com.kipa.kipa.Model.UserAlbumStatusRequest;
+import com.kipa.kipa.Repo.AlbumRepository;
 import com.kipa.kipa.Repo.UserAlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ public class UserAlbumService {
 
     @Autowired
     UserAlbumRepository userAlbumRepo;
+    @Autowired
+    AlbumRepository albumRepo;
 
     public void addUserAlbum(UserAlbum userAlbum) {
         userAlbumRepo.save(userAlbum);
@@ -24,6 +28,7 @@ public class UserAlbumService {
                 .ifPresent(userAlbum -> {
                     if (Objects.equals(userAlbumStatusRequest.getStatus(), "")) {
                         userAlbumRepo.delete(userAlbum);
+                        removeAlbumIfNoUsers(userAlbumStatusRequest.getAlbumID());
                     }
                     else {
                         userAlbum.setStatus(userAlbumStatusRequest.getStatus());
@@ -46,5 +51,12 @@ public class UserAlbumService {
                     userAlbum.setNotes(userAlbumStatusRequest.getNotes());
                     userAlbumRepo.save(userAlbum);
                 });
+    }
+
+    // Delete an Album from the Albums table if no users currently Own/Want it
+    public void removeAlbumIfNoUsers(String albumID) {
+        if (!userAlbumRepo.existsByIdAlbumID(albumID)) {
+            albumRepo.delete(albumRepo.findAlbumByAlbumID(albumID));
+        }
     }
 }
