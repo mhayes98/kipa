@@ -27,9 +27,6 @@ public class UserService{
 
     public void registerUser(User user) throws BadRequestException {
         checkUniqueUsername(user.getUsername());
-        checkValidPasswordLength(user.getPassword());
-        checkValidEmailAddress(user.getEmail());
-
         user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
     }
@@ -58,17 +55,4 @@ public class UserService{
             throw new BadRequestException("Username already taken");
         }
     }
-
-    public void checkValidPasswordLength(String password) throws BadRequestException {
-        if (password.length() > 25) {
-            throw new BadRequestException("Password must be less than 25 characters");
-        }
-    }
-
-    public void checkValidEmailAddress(String email) throws BadRequestException {
-        if (!email.contains("@")) {
-            throw new BadRequestException("Invalid email format.");
-        }
-    }
-
 }

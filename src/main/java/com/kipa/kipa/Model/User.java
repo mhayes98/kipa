@@ -1,6 +1,7 @@
 package com.kipa.kipa.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity // Turns class into a database entity/table
 @Table(name="users")
@@ -8,9 +9,17 @@ public class User {
     @Id // Primary key designation <> internal unique identifier
     @GeneratedValue(strategy=GenerationType.AUTO) // Auto-generates primary key value upon creation
     private long id;
-    @Column(unique=true) // Human-readable unique identifier
+
+    @NotNull(message="Username cannot be empty.")
+    @Size(min=3, max=25, message="Username must be between 3 and 25 characters.")
     private String username;
+
+    @NotNull(message="Password cannot be empty.")
+    @Size(min=10, max=25, message="Password must be between 10 and 25 characters.")
     private String password;
+
+    @NotNull(message="Email cannot be empty.")
+    @Email(message="You must enter a valid email address.")
     private String email;
 
     protected User() {}
