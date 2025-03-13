@@ -2,6 +2,7 @@ package com.kipa.kipa.Service;
 
 import com.kipa.kipa.Model.User;
 import com.kipa.kipa.Repo.UserRepository;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +25,11 @@ public class UserService{
     @Autowired
     private JWTService jwtService;
 
-    public void registerUser(User user) {
+    public void registerUser(User user) throws BadRequestException {
+        checkUniqueUsername(user.getUsername());
+        checkValidPasswordLength(user.getPassword());
+        checkValidEmailAddress(user.getEmail());
+
         user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
     }
@@ -48,12 +53,22 @@ public class UserService{
         userRepo.deleteById(userID);
     }
 
-    public Optional<User> getUserByID(int userID) {
-        return userRepo.findById(userID);
+    public void checkUniqueUsername(String username) throws BadRequestException {
+        if (userRepo.existsByUsernameIgnoreCase(username)) {
+            throw new BadRequestException("Username already taken");
+        }
     }
 
-    public List<User> getUsers() {
-        return userRepo.findAll();
+    public void checkValidPasswordLength(String password) throws BadRequestException {
+        if (password.length() > 25) {
+            throw new BadRequestException("Password must be less than 25 characters");
+        }
+    }
+
+    public void checkValidEmailAddress(String email) throws BadRequestException {
+        if (!email.contains("@")) {
+            throw new BadRequestException("Invalid email format.");
+        }
     }
 
 }

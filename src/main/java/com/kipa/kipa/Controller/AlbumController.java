@@ -16,12 +16,6 @@ public class AlbumController {
     @Autowired
     AlbumService service;
 
-    @GetMapping("/albums")
-    public String getAlbumDetails() {
-        // Placeholder - Get album details from Spotify / Discogs API (?)
-        return "GOOD";
-    }
-
     @PostMapping("/album")
     public void tagAlbum(@RequestBody Album album) {
         service.addAlbum(album);

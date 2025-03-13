@@ -9,4 +9,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     //List<User> findByRole(String role);
     User findByUsername(String username);
+    boolean existsByUsernameIgnoreCase(String username);
 }
