@@ -11,7 +11,7 @@ public class User {
     private long id;
 
     @NotNull(message="Username cannot be empty.")
-    @Size(min=3, max=25, message="Username must be between 3 and 25 characters.")
+    @Size(min=2, max=25, message="Username must be between 2 and 25 characters.")
     private String username;
 
     @NotNull(message="Password cannot be empty.")
@@ -28,6 +28,11 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     @Override
