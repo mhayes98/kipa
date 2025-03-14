@@ -19,6 +19,7 @@ public class User {
     private String password;
 
     @NotNull(message="Email cannot be empty.")
+    @Size(min=6, max=50, message="Invalid email detected.")
     @Email(message="You must enter a valid email address.")
     private String email;
 
