@@ -27,6 +27,7 @@ public class UserService{
 
     public void registerUser(User user) throws BadRequestException {
         checkUniqueUsername(user.getUsername());
+        checkUniqueEmail(user.getEmail());
         user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
     }
@@ -52,7 +53,13 @@ public class UserService{
 
     public void checkUniqueUsername(String username) throws BadRequestException {
         if (userRepo.existsByUsernameIgnoreCase(username)) {
-            throw new BadRequestException("Username already taken");
+            throw new BadRequestException("Username already taken.");
+        }
+    }
+
+    public void checkUniqueEmail(String email) throws BadRequestException {
+        if (userRepo.existsByEmailIgnoreCase(email)) {
+            throw new BadRequestException("Email already in use.");
         }
     }
 }
