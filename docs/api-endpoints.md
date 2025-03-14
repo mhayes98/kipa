@@ -16,7 +16,7 @@ Creates and stores a User with a username, password, and email.
 
 **Username** is validated to ensure the field is not null, is between 2-25 characters long, and is not already in use.
 **Password** is validated to ensure it is not null, and is between 10-25 characters long.
-**Email** is validated to ensure it is not null, is not already in use, and contains an "@".
+**Email** is validated to ensure it is not null, is between 6-50 characters long, is not already in use, and contains an "@".
 
 If all checks pass, the provided password is encrypted using 12 strength BCrypt, and the User object is stored in the database.
 
