@@ -6,9 +6,6 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-// ****
-// API paths will need to be refactored --> Obsidian / Kipa / API Endpoint Security / Refactoring Plan
-// ***
 
 @RestController
 public class UserController {
