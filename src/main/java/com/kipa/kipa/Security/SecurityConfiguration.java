@@ -35,7 +35,6 @@ public class SecurityConfiguration {
                 .csrf(customizer -> customizer.disable())
                 // Filter checks for valid JWT token before forcing login
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .httpBasic(Customizer.withDefaults())
                 .build();
     }
 
