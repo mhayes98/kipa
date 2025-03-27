@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true") // Testing purposes
+// Testing purposes
 public class UserController {
 
     @Autowired
