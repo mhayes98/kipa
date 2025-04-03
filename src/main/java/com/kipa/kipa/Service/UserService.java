@@ -1,10 +1,7 @@
 package com.kipa.kipa.Service;
 
-import ch.qos.logback.core.helpers.CyclicBuffer;
 import com.kipa.kipa.Model.User;
 import com.kipa.kipa.Repo.UserRepository;
-import org.apache.coyote.BadRequestException;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,8 +12,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 
 // General service class for User related functions
@@ -31,7 +29,7 @@ public class UserService{
     @Autowired
     private JWTService jwtService;
 
-    public ResponseEntity<String> registerUser(User user) {
+    public ResponseEntity<Map<String, String>> registerUser(User user) {
         if (checkUniqueUsername(user.getUsername()) != null) {
             return checkUniqueUsername(user.getUsername());
         }
@@ -40,7 +38,9 @@ public class UserService{
         }
         user.setPassword(encoder.encode(user.getPasswordDTO()));
         userRepo.save(user);
-        return new ResponseEntity<>("Registration complete", HttpStatus.OK);
+        Map<String, String> successResponse = new HashMap<>();
+        successResponse.put("success", "Registration complete");
+        return ResponseEntity.status(HttpStatus.OK).body(successResponse);
     }
 
 
@@ -87,16 +87,20 @@ public class UserService{
     }
     */
 
-    public ResponseEntity<String> checkUniqueUsername(String username) {
+    public ResponseEntity<Map<String, String>> checkUniqueUsername(String username) {
         if (userRepo.existsByUsernameIgnoreCase(username)) {
-            return new ResponseEntity<>("Username already taken", HttpStatus.BAD_REQUEST);
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "USERNAME_TAKEN");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
         return null;
     }
 
-    public ResponseEntity<String> checkUniqueEmail(String email){
+    public ResponseEntity<Map<String, String>> checkUniqueEmail(String email){
         if (userRepo.existsByEmailIgnoreCase(email)) {
-            return new ResponseEntity<>("Email already in use", HttpStatus.BAD_REQUEST);
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "EMAIL_TAKEN");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
         return null;
     }
