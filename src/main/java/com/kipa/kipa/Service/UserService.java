@@ -1,8 +1,10 @@
 package com.kipa.kipa.Service;
 
+import ch.qos.logback.core.helpers.CyclicBuffer;
 import com.kipa.kipa.Model.User;
 import com.kipa.kipa.Repo.UserRepository;
 import org.apache.coyote.BadRequestException;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,11 +31,16 @@ public class UserService{
     @Autowired
     private JWTService jwtService;
 
-    public void registerUser(User user) throws BadRequestException {
-        checkUniqueUsername(user.getUsername());
-        checkUniqueEmail(user.getEmail());
-        user.setPassword(encoder.encode(user.getPassword()));
+    public ResponseEntity<String> registerUser(User user) {
+        if (checkUniqueUsername(user.getUsername()) != null) {
+            return checkUniqueUsername(user.getUsername());
+        }
+        if (checkUniqueEmail(user.getEmail()) != null) {
+            return checkUniqueEmail(user.getEmail());
+        }
+        user.setPassword(encoder.encode(user.getPasswordDTO()));
         userRepo.save(user);
+        return new ResponseEntity<>("Registration complete", HttpStatus.OK);
     }
 
 
@@ -56,9 +63,11 @@ public class UserService{
                         .sameSite("Strict")
                         .build();
 
+
+                String username = user.getUsername();
                 return ResponseEntity.ok()
                         .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                        .body("Kipa cookie");
+                           .body("{\"username\":\"" + user.getUsername() + "\", \"message\":\"Login successful\"}");
             }
         }
 
@@ -70,15 +79,26 @@ public class UserService{
         userRepo.deleteById(userID);
     }
 
+    /*
     public void checkUniqueUsername(String username) throws BadRequestException {
         if (userRepo.existsByUsernameIgnoreCase(username)) {
             throw new BadRequestException("Username already taken.");
         }
     }
+    */
 
-    public void checkUniqueEmail(String email) throws BadRequestException {
-        if (userRepo.existsByEmailIgnoreCase(email)) {
-            throw new BadRequestException("Email already in use.");
+    public ResponseEntity<String> checkUniqueUsername(String username) {
+        if (userRepo.existsByUsernameIgnoreCase(username)) {
+            return new ResponseEntity<>("Username already taken", HttpStatus.BAD_REQUEST);
         }
+        return null;
     }
+
+    public ResponseEntity<String> checkUniqueEmail(String email){
+        if (userRepo.existsByEmailIgnoreCase(email)) {
+            return new ResponseEntity<>("Email already in use", HttpStatus.BAD_REQUEST);
+        }
+        return null;
+    }
+
 }

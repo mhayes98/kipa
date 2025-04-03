@@ -14,8 +14,13 @@ public class User {
     @Size(min=2, max=25, message="Username must be between 2 and 25 characters.")
     private String username;
 
+    @Transient
     @NotNull(message="Password cannot be empty.")
     @Size(min=10, max=25, message="Password must be between 10 and 25 characters.")
+    // This stores the raw password. Passwords that pass validation will be sent to "password"
+    private String passwordDTO;
+
+    // This stores the hashed password
     private String password;
 
     @NotNull(message="Email cannot be empty.")
@@ -25,9 +30,9 @@ public class User {
 
     protected User() {}
 
-    public User(String username, String password, String email) {
+    public User(String username, String passwordDTO, String email) {
         this.username = username;
-        this.password = password;
+        this.passwordDTO = passwordDTO;
         this.email = email;
     }
 
@@ -38,39 +43,52 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format("ID=%d | Username=%s | Email=%s", id, username, email);
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", passwordDTO='" + passwordDTO + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 
     public long getId() {
         return id;
     }
 
-    public String getUsername() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public @NotNull(message = "Username cannot be empty.") @Size(min = 2, max = 25, message = "Username must be between 2 and 25 characters.") String getUsername() {
         return username;
+    }
+
+    public void setUsername(@NotNull(message = "Username cannot be empty.") @Size(min = 2, max = 25, message = "Username must be between 2 and 25 characters.") String username) {
+        this.username = username;
+    }
+
+    public @NotNull(message = "Password cannot be empty.") @Size(min = 10, max = 25, message = "Password must be between 10 and 25 characters.") String getPasswordDTO() {
+        return passwordDTO;
+    }
+
+    public void setPasswordDTO(@NotNull(message = "Password cannot be empty.") @Size(min = 10, max = 25, message = "Password must be between 10 and 25 characters.") String passwordDTO) {
+        this.passwordDTO = passwordDTO;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public @NotNull(message = "Email cannot be empty.") @Size(min = 6, max = 50, message = "Invalid email detected.") @Email(message = "You must enter a valid email address.") String getEmail() {
+        return email;
     }
 
+    public void setEmail(@NotNull(message = "Email cannot be empty.") @Size(min = 6, max = 50, message = "Invalid email detected.") @Email(message = "You must enter a valid email address.") String email) {
+        this.email = email;
+    }
 }
