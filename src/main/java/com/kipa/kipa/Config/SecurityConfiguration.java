@@ -1,4 +1,4 @@
-package com.kipa.kipa.Security;
+package com.kipa.kipa.Config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

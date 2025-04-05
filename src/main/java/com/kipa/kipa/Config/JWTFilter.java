@@ -1,4 +1,4 @@
-package com.kipa.kipa.Security;
+package com.kipa.kipa.Config;
 
 import com.kipa.kipa.Service.JWTService;
 import com.kipa.kipa.Service.MyUserDetailsService;
