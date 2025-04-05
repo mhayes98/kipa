@@ -1,5 +1,7 @@
 package com.kipa.kipa.Model;
 
+
+
 public class DiscogsSearchResponse {
 
     private String artistName;
