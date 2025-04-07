@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import reactor.core.publisher.Mono;
 
 
 @Service
@@ -32,10 +31,9 @@ public class DiscogsSearchService {
                 .header("Authorization", "Discogs token=" + discogsToken)
                 .header("User-Agent", "Kipa/1.0")
                 .retrieve()
-                .bodyToFlux(DiscogsSearchResponse.class)
-                .collectList()
+                .bodyToMono(DiscogsSearchResponse.class)
+                .map(DiscogsSearchResponse::getResults)
                 .block();
-
     }
 
     public List<DiscogsSearchResponse> searchDiscogsByArtist(String searchQuery) {
@@ -45,10 +43,11 @@ public class DiscogsSearchService {
                         .queryParam("q", searchQuery)
                         .queryParam("type", "artist")
                         .build())
-                .header("Authorizartion", "Bearer " + discogsToken)
+                .header("Authorization", "Discogs token=" + discogsToken)
+                .header("User-Agent", "Kipa/1.0")
                 .retrieve()
-                .bodyToFlux(DiscogsSearchResponse.class)
-                .collectList()
+                .bodyToMono(DiscogsSearchResponse.class)
+                .map(DiscogsSearchResponse::getResults)
                 .block();
     }
 }

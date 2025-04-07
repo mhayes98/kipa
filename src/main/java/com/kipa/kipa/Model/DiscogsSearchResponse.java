@@ -1,28 +1,53 @@
 package com.kipa.kipa.Model;
 
-
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DiscogsSearchResponse {
-
-    private String artistName;
-    private String albumName;
+    @JsonProperty("type") // Artist or Master (album)
+    private String type;
+    @JsonProperty("title") // Artist name or Master title
+    private String title;
+    @JsonProperty("genre")
+    private List<String> genre;
+    @JsonProperty("style")
+    private List<String> style;
+    @JsonProperty("thumb") // Potentially change this for better resolution image
     private String thumbnailURL;
+    @JsonProperty("year") // May be 0 or null for Artists
     private int year;
+    private List<DiscogsSearchResponse> results;
 
-    public String getArtistName() {
-        return artistName;
+    public String getType() {
+        return type;
     }
 
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getAlbumName() {
-        return albumName;
+    public String getTitle() {
+        return title;
     }
 
-    public void setAlbumName(String albumName) {
-        this.albumName = albumName;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public List<String> getGenre() {
+        return genre;
+    }
+
+    public void setGenre(List<String> genre) {
+        this.genre = genre;
+    }
+
+    public List<String> getStyle() {
+        return style;
+    }
+
+    public void setStyle(List<String> style) {
+        this.style = style;
     }
 
     public String getThumbnailURL() {
@@ -39,5 +64,13 @@ public class DiscogsSearchResponse {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public List<DiscogsSearchResponse> getResults() {
+        return results;
+    }
+
+    public void setResults(List<DiscogsSearchResponse> results) {
+        this.results = results;
     }
 }

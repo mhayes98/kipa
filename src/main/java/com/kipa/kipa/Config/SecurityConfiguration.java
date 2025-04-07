@@ -34,7 +34,7 @@ public class SecurityConfiguration {
         return http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/register", "/login", "/search/master").permitAll()
+                        .requestMatchers("/register", "/login", "/search/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
