@@ -4,6 +4,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DiscogsSearchResponse {
+    @JsonProperty("id")
+    private int id;
     @JsonProperty("type") // Artist or Master (album)
     private String type;
     @JsonProperty("title") // Artist name or Master title
@@ -17,6 +19,14 @@ public class DiscogsSearchResponse {
     @JsonProperty("year") // May be 0 or null for Artists
     private int year;
     private List<DiscogsSearchResponse> results;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getType() {
         return type;
