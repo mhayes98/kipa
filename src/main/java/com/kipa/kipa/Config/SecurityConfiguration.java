@@ -34,8 +34,11 @@ public class SecurityConfiguration {
         return http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/register", "/login", "/search/*").permitAll()
-                        .anyRequest().authenticated()
+                        //.requestMatchers("/register", "/login", "/search/*").permitAll()
+                        //.anyRequest().authenticated()
+
+                        // TEMPORARY --> DELETE LATER
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(customizer -> customizer.disable())
@@ -81,7 +84,7 @@ public class SecurityConfiguration {
     private UserDetailsService userDetailsService;
 
     // Instantiates DaoAuthenticationObject for authorization comparison
-    // Sets hashing algorithim to BCrypt
+    // Sets hashing algorithm to BCrypt
     // userDetailsService retrieves user from the DB
     @Bean
     public AuthenticationProvider authenticationProvider() {
