@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.util.List;
+
 @Entity
 @Table(name="albums")
 public class Album {
@@ -13,7 +15,9 @@ public class Album {
     private String title;
     private String artist;
     private int year;
-    private String tracklist;
+    private String genre;
+    private String thumb;
+    private List<String> tracklist;
 
 
     public String getAlbumID() {
@@ -48,11 +52,27 @@ public class Album {
         this.year = year;
     }
 
-    public String getTracklist() {
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
+
+    public List<String> getTracklist() {
         return tracklist;
     }
 
-    public void setTracklist(String tracklist) {
+    public void setTracklist(List<String> tracklist) {
         this.tracklist = tracklist;
     }
 }

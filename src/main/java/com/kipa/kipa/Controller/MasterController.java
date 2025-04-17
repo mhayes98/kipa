@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 public class MasterController {
@@ -16,7 +18,7 @@ public class MasterController {
     DiscogsMasterService service;
 
     @GetMapping("/master/{masterID}")
-    public Collection<DiscogsTrack> searchByMasterID(@PathVariable String masterID) {
+    public Mono<List<DiscogsTrack>> searchByMasterID(@PathVariable String masterID) {
         return service.getTracklistByMasterID(masterID);
     }
 }
