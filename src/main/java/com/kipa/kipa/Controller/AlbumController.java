@@ -16,10 +16,20 @@ public class AlbumController {
     @Autowired
     AlbumService service;
 
+
+//    @PostMapping("/album")
+//    public void saveAlbum(@RequestBody String rawJson) throws Exception {
+//        System.out.println("RAW JSON --> " + rawJson);
+//    }
+
+
+
+
     @PostMapping("/album")
-    public void tagAlbum(@RequestBody Album album) {
+    public void saveAlbum(@RequestBody Album album) {
         service.addAlbum(album);
     }
+
 
     @DeleteMapping("/album")
     public void deleteAlbum(@RequestBody Album album) {
