@@ -8,7 +8,7 @@ import java.util.List;
 public class UserAlbumStatusRequest {
 
     private String userID;
-    private String albumID;
+    private Integer albumID;
     private String status;
     private List<String> tags;
     private String notes;
@@ -34,11 +34,11 @@ public class UserAlbumStatusRequest {
         this.userID = userID;
     }
 
-    public String getAlbumID() {
+    public Integer getAlbumID() {
         return albumID;
     }
 
-    public void setAlbumID(String albumID) {
+    public void setAlbumID(Integer albumID) {
         this.albumID = albumID;
     }
 

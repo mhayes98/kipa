@@ -54,7 +54,7 @@ public class UserAlbumService {
     }
 
     // Delete an Album from the Albums table if no users currently Own/Want it
-    public void removeAlbumIfNoUsers(String albumID) {
+    public void removeAlbumIfNoUsers(Integer albumID) {
         if (!userAlbumRepo.existsByIdAlbumID(albumID)) {
             albumRepo.delete(albumRepo.findAlbumByAlbumID(albumID));
         }

@@ -17,7 +17,7 @@ public class UserAlbum {
     private String notes;
 
     @Transient
-    private String albumID;
+    private Integer albumID;
 
     public UserAlbum(UserAlbumID id, String status, String[] tags, String notes) {
         this.id = id;
@@ -28,7 +28,7 @@ public class UserAlbum {
 
     // This constructor creates a UserAlbum object while only getting an albumID
     // Currently in place due to the editTag call in UserAlbumController
-    public UserAlbum (String albumID, String status, String[] tags, String notes ) {
+    public UserAlbum (Integer albumID, String status, String[] tags, String notes ) {
         this.albumID = albumID;
         this.status = status;
         this.tags = List.of(tags);
@@ -69,11 +69,11 @@ public class UserAlbum {
         this.notes = notes;
     }
 
-    public String getAlbumID() {
+    public Integer getAlbumID() {
         return albumID;
     }
 
-    public void setAlbumID(String albumID) {
+    public void setAlbumID(Integer albumID) {
         this.albumID = albumID;
     }
 }

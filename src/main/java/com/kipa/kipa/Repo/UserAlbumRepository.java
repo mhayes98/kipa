@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface UserAlbumRepository extends JpaRepository<UserAlbum, UserAlbumID> {
     // Id clarification necessary for composite key fields
-    Optional<UserAlbum> findByIdUserIDAndIdAlbumID(String userId, String albumId);
-    boolean existsByIdAlbumID(String albumId);
+    Optional<UserAlbum> findByIdUserIDAndIdAlbumID(String userId, Integer albumId);
+    boolean existsByIdAlbumID(Integer albumId);
 }

@@ -7,9 +7,9 @@ import java.io.Serializable;
 @Embeddable
 public class UserAlbumID implements Serializable {
     private String userID;
-    private String albumID;
+    private Integer albumID;
 
-    public UserAlbumID(String userID, String albumID) {
+    public UserAlbumID(String userID, Integer albumID) {
         this.userID = userID;
         this.albumID = albumID;
     }
@@ -24,11 +24,11 @@ public class UserAlbumID implements Serializable {
         this.userID = userID;
     }
 
-    public String getAlbumID() {
+    public Integer getAlbumID() {
         return albumID;
     }
 
-    public void setAlbumID(String albumID) {
+    public void setAlbumID(Integer albumID) {
         this.albumID = albumID;
     }
 }
