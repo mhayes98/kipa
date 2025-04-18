@@ -1,7 +1,12 @@
 package com.kipa.kipa.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class DiscogsTrack {
-    private String title;
+    @JsonProperty("title")
+    private String trackName;
     private String duration;
 
     public String getDuration() {
@@ -12,11 +17,11 @@ public class DiscogsTrack {
         this.duration = duration;
     }
 
-    public String getTitle() {
-        return title;
+    public String gettrackName() {
+        return trackName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void settrackName(String trackName) {
+        this.trackName = trackName;
     }
 }
