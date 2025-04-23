@@ -1,9 +1,12 @@
 package com.kipa.kipa.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
-
 import java.util.List;
+import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name="albums")
@@ -18,10 +21,19 @@ public class Album {
     private List<String> genre;
     private List<String> style;
     private String thumbnail;
-    @ElementCollection
-    private List<DiscogsTrack> tracklist;
+    @Column(columnDefinition = "TEXT")
+    private String tracklist;
+    @Transient
+    private List<DiscogsTrack> tracklistAsArray;
 
     public Album() {}
+
+    // Tracklist is received as an array, this function will convert that array to a raw JSON string to be stored in the database
+    // The tracklist will only be displayed in the front end. This setup will need to be adjusted if interaction with the tracklist is ever implemented.
+    public void convertArrayToRawJson() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        setTracklist(objectMapper.writeValueAsString(tracklistAsArray));
+    }
 
     public Integer getAlbumID() {
         return albumID;
@@ -79,12 +91,20 @@ public class Album {
         this.thumbnail = thumbnail;
     }
 
-    public List<DiscogsTrack> getTracklist() {
+    public String getTracklist() {
         return tracklist;
     }
 
-    public void setTracklist(List<DiscogsTrack> tracklist) {
+    public void setTracklist(String tracklist) {
         this.tracklist = tracklist;
+    }
+
+    public List<DiscogsTrack> getTracklistAsArray() {
+        return tracklistAsArray;
+    }
+
+    public void setTracklistAsArray(List<DiscogsTrack> tracklistAsArray) {
+        this.tracklistAsArray = tracklistAsArray;
     }
 }
 

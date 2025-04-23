@@ -1,5 +1,6 @@
 package com.kipa.kipa.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kipa.kipa.Model.Album;
 import com.kipa.kipa.Model.User;
 import com.kipa.kipa.Service.AlbumService;
@@ -26,13 +27,15 @@ public class AlbumController {
 
 
     @PostMapping("/album")
-    public void saveAlbum(@RequestBody Album album) {
+    public void saveAlbum(@RequestBody Album album) throws JsonProcessingException {
+        album.convertArrayToRawJson();
         service.addAlbum(album);
     }
 
 
     @DeleteMapping("/album")
-    public void deleteAlbum(@RequestBody Album album) {
+    public void deleteAlbum(@RequestBody Album album) throws JsonProcessingException {
+        //album.convertArrayToRawJson();
         service.deleteAlbum(album);
     }
 }
