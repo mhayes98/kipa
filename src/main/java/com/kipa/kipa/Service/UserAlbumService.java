@@ -2,6 +2,7 @@ package com.kipa.kipa.Service;
 
 import com.kipa.kipa.Model.Album;
 import com.kipa.kipa.Model.UserAlbum;
+import com.kipa.kipa.Model.UserAlbumDTO;
 import com.kipa.kipa.Model.UserAlbumStatusRequest;
 import com.kipa.kipa.Repo.AlbumRepository;
 import com.kipa.kipa.Repo.UserAlbumRepository;
