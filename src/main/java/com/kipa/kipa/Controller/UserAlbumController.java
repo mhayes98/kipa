@@ -1,5 +1,6 @@
 package com.kipa.kipa.Controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kipa.kipa.Model.UserAlbumDTO;
 import com.kipa.kipa.Model.UserAlbumStatusRequest;
 import com.kipa.kipa.Repo.AlbumRepository;
@@ -23,8 +24,9 @@ public class UserAlbumController {
     AlbumService albumService;
 
     @PostMapping("/user-album")
-    public void editTags(@RequestBody UserAlbumDTO userAlbumDTO) {
+    public void editTags(@RequestBody UserAlbumDTO userAlbumDTO) throws JsonProcessingException {
         if(albumRepo.findAlbumByAlbumID(userAlbumDTO.getAlbum().getAlbumID()) == null) {
+            userAlbumDTO.getAlbum().convertArrayToRawJson();
             albumService.addAlbum(userAlbumDTO.getAlbum());
         }
         service.addUserAlbum(userAlbumDTO.getUserAlbum());
