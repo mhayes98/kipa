@@ -1,14 +1,12 @@
 package com.kipa.kipa.Service;
 
-import com.kipa.kipa.Model.Album;
-import com.kipa.kipa.Model.UserAlbum;
-import com.kipa.kipa.Model.UserAlbumDTO;
-import com.kipa.kipa.Model.UserAlbumStatusRequest;
+import com.kipa.kipa.Model.*;
 import com.kipa.kipa.Repo.AlbumRepository;
 import com.kipa.kipa.Repo.UserAlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -59,5 +57,9 @@ public class UserAlbumService {
         if (!userAlbumRepo.existsByIdAlbumID(albumID)) {
             albumRepo.delete(albumRepo.findAlbumByAlbumID(albumID));
         }
+    }
+
+    public List<JoinedUserAlbumDTO> getMySavedAlbums(String username) {
+        return userAlbumRepo.findAlbumsByUser(username);
     }
 }
