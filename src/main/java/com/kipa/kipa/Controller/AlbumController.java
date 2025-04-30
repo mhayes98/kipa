@@ -17,15 +17,6 @@ public class AlbumController {
     @Autowired
     AlbumService service;
 
-
-//    @PostMapping("/album")
-//    public void saveAlbum(@RequestBody String rawJson) throws Exception {
-//        System.out.println("RAW JSON --> " + rawJson);
-//    }
-
-
-
-
     @PostMapping("/album")
     public void saveAlbum(@RequestBody Album album) throws JsonProcessingException {
         album.convertArrayToRawJson();
