@@ -2,7 +2,7 @@ package com.kipa.kipa.Model;
 
 import java.util.List;
 
-public class JoinedUserAlbumDTO {
+public class JoinedAlbumUserAlbumDTO {
     private int userAlbumid;
     private String userid;
     private String notes;
@@ -36,10 +36,10 @@ public class JoinedUserAlbumDTO {
                 '}';
     }
 
-    public JoinedUserAlbumDTO(int userAlbumid, String userid, String notes,
-                              String status, List<String> tags, int albumAlbumid,
-                              String artist, List<String> genre, List<String> style,
-                              String thumbnail, String title, String tracklist, int year) {
+    public JoinedAlbumUserAlbumDTO(int userAlbumid, String userid, String notes,
+                                   String status, List<String> tags, int albumAlbumid,
+                                   String artist, List<String> genre, List<String> style,
+                                   String thumbnail, String title, String tracklist, int year) {
         this.userAlbumid = userAlbumid;
         this.userid = userid;
         this.notes = notes;

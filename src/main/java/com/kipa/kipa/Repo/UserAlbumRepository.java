@@ -1,7 +1,7 @@
 package com.kipa.kipa.Repo;
 
 
-import com.kipa.kipa.Model.JoinedUserAlbumDTO;
+import com.kipa.kipa.Model.JoinedAlbumUserAlbumDTO;
 import com.kipa.kipa.Model.UserAlbum;
 import com.kipa.kipa.Model.UserAlbumID;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,6 +38,6 @@ public interface UserAlbumRepository extends JpaRepository<UserAlbum, UserAlbumI
             "    ON albums.albumid = user_albums.albumid " +
             "WHERE user_albums.userid = :userId",
         nativeQuery = true)
-    List<JoinedUserAlbumDTO> findAlbumsByUser(@Param("userId") String username);
+    List<JoinedAlbumUserAlbumDTO> findAlbumsByUser(@Param("userId") String username);
 
 }

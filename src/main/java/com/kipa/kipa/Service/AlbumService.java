@@ -18,5 +18,4 @@ public class AlbumService {
     public void deleteAlbum(Album album) {
         albumRepo.delete(album);
     }
-
 }

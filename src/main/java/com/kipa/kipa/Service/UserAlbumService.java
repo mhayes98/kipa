@@ -59,7 +59,7 @@ public class UserAlbumService {
         }
     }
 
-    public List<JoinedUserAlbumDTO> getMySavedAlbums(String username) {
+    public List<JoinedAlbumUserAlbumDTO> getMySavedAlbums(String username) {
         return userAlbumRepo.findAlbumsByUser(username);
     }
 }
