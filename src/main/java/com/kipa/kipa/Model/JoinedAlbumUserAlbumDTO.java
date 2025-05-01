@@ -1,5 +1,9 @@
 package com.kipa.kipa.Model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.List;
 
 public class JoinedAlbumUserAlbumDTO {
@@ -53,6 +57,13 @@ public class JoinedAlbumUserAlbumDTO {
         this.title = title;
         this.tracklist = tracklist;
         this.year = year;
+    }
+
+    // May need to use StringEscapeUtils.unescapeJson) to remove escaped quotes - verify
+    // Implement null checker
+    public List<DiscogsTrack> convertTracklist(String tracklist) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(tracklist, new TypeReference<List<DiscogsTrack>>() {});
     }
 
     public int getUserAlbumid() {
