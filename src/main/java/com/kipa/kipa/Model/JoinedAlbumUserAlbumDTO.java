@@ -6,16 +6,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
+// List<String> Values = Tags, Genre, Style
+// List<DiscogsTrack> Value = Tracklist
 public class JoinedAlbumUserAlbumDTO {
     private int userAlbumid;
     private String userid;
     private String notes;
     private String status;
-    private List<String> tags;
+    private String tags;
     private int albumAlbumid;
     private String artist;
-    private List<String> genre;
-    private List<String> style;
+    private String genre;
+    private String style;
     private String thumbnail;
     private String title;
     private String tracklist;
@@ -40,10 +42,17 @@ public class JoinedAlbumUserAlbumDTO {
                 '}';
     }
 
+    // May need to use StringEscapeUtils.unescapeJson) to remove escaped quotes - verify
+    // Implement null checker
+    public List<DiscogsTrack> convertTracklist(String tracklist) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(tracklist, new TypeReference<List<DiscogsTrack>>() {});
+    }
+
     public JoinedAlbumUserAlbumDTO(int userAlbumid, String userid, String notes,
-                                   String status, List<String> tags, int albumAlbumid,
-                                   String artist, List<String> genre, List<String> style,
-                                   String thumbnail, String title, String tracklist, int year) {
+                                   String status, String tags, int albumAlbumid,
+                                   String artist, String genre, String style, String thumbnail,
+                                   String title, String tracklist, int year) {
         this.userAlbumid = userAlbumid;
         this.userid = userid;
         this.notes = notes;
@@ -57,13 +66,6 @@ public class JoinedAlbumUserAlbumDTO {
         this.title = title;
         this.tracklist = tracklist;
         this.year = year;
-    }
-
-    // May need to use StringEscapeUtils.unescapeJson) to remove escaped quotes - verify
-    // Implement null checker
-    public List<DiscogsTrack> convertTracklist(String tracklist) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(tracklist, new TypeReference<List<DiscogsTrack>>() {});
     }
 
     public int getUserAlbumid() {
@@ -98,11 +100,11 @@ public class JoinedAlbumUserAlbumDTO {
         this.status = status;
     }
 
-    public List<String> getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 
@@ -122,19 +124,19 @@ public class JoinedAlbumUserAlbumDTO {
         this.artist = artist;
     }
 
-    public List<String> getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    public void setGenre(List<String> genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
-    public List<String> getStyle() {
+    public String getStyle() {
         return style;
     }
 
-    public void setStyle(List<String> style) {
+    public void setStyle(String style) {
         this.style = style;
     }
 
