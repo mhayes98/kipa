@@ -49,6 +49,18 @@ public class JoinedAlbumUserAlbumDTO {
         return objectMapper.readValue(tracklist, new TypeReference<List<DiscogsTrack>>() {});
     }
 
+    // Split Genre & Style into a list
+    // TESTING FOR NOW
+    // Real object may be of type `java.sql.Array` -- need to convert
+    public void TESTconverToList() {
+        String testStr = "{\"Indie Rock\",\"Classical\",\"Hip-Hop\",\"Country\"}";
+        String splitSequence = "\",\"";
+        String splitValues[] = testStr.split(splitSequence);
+        for (String index : splitValues) {
+            System.out.println(index);
+        }
+    }
+
     public JoinedAlbumUserAlbumDTO(int userAlbumid, String userid, String notes,
                                    String status, String tags, int albumAlbumid,
                                    String artist, String genre, String style, String thumbnail,
