@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kipa.kipa.Model.UserAlbumDTO;
 import com.kipa.kipa.Model.UserAlbumStatusRequest;
 import com.kipa.kipa.Repo.AlbumRepository;
-import com.kipa.kipa.Repo.UserAlbumRepository;
 import com.kipa.kipa.Service.AlbumService;
 import com.kipa.kipa.Service.UserAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 public class UserAlbumController {
@@ -48,5 +48,10 @@ public class UserAlbumController {
     @GetMapping("/user-albums/{username}")
     public void getMySavedAlbums(@PathVariable String username) {
         System.out.println(service.getMySavedAlbums(username));
+    }
+
+    @GetMapping("/debug")
+    public void getRawQueryResults() {
+        service.debugServiceMethod();
     }
 }

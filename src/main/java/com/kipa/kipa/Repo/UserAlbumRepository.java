@@ -40,4 +40,26 @@ public interface UserAlbumRepository extends JpaRepository<UserAlbum, UserAlbumI
         nativeQuery = true)
     List<JoinedAlbumUserAlbumDTO> findAlbumsByUser(@Param("userId") String username);
 
+
+    @Query(
+        value = "SELECT " +
+            "    user_albums.albumid AS user_albumid, " +
+            "    user_albums.userid, " +
+            "    user_albums.notes, " +
+            "    user_albums.status, " +
+            "    user_albums.tags, " +
+            "    albums.albumid AS album_albumid, " +
+            "    albums.artist, " +
+            "    albums.genre, " +
+            "    albums.style, " +
+            "    albums.thumbnail, " +
+            "    albums.title, " +
+            "    albums.tracklist, " +
+            "    albums.year " +
+            "FROM user_albums " +
+            "INNER JOIN albums " +
+            "    ON albums.albumid = user_albums.albumid " +
+            "WHERE user_albums.userid = 'testuser'",
+        nativeQuery = true)
+        List<Object[]> debugQuery();
 }

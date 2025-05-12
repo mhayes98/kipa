@@ -22,14 +22,13 @@ public class UserAlbumService {
         userAlbumRepo.save(userAlbum);
     }
 
-    public void editStatus(UserAlbumStatusRequest userAlbumStatusRequest){
+    public void editStatus(UserAlbumStatusRequest userAlbumStatusRequest) {
         userAlbumRepo.findByIdUserIDAndIdAlbumID(userAlbumStatusRequest.getUserID(), userAlbumStatusRequest.getAlbumID())
                 .ifPresent(userAlbum -> {
                     if (Objects.equals(userAlbumStatusRequest.getStatus(), "")) {
                         userAlbumRepo.delete(userAlbum);
                         removeAlbumIfNoUsers(userAlbumStatusRequest.getAlbumID());
-                    }
-                    else {
+                    } else {
                         userAlbum.setStatus(userAlbumStatusRequest.getStatus());
                         userAlbumRepo.save(userAlbum);
                     }
@@ -61,5 +60,14 @@ public class UserAlbumService {
 
     public List<JoinedAlbumUserAlbumDTO> getMySavedAlbums(String username) {
         return userAlbumRepo.findAlbumsByUser(username);
+    }
+
+    public void debugServiceMethod() {
+        List<Object[]> rows = userAlbumRepo.debugQuery();
+        for (Object[] row : rows) {
+            for (int i = 0; i < row.length; i++) {
+                System.out.println("Column " + i + " = " + row[i] + " (" + row[i].getClass().getName() + ")");
+            }
+        }
     }
 }

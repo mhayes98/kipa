@@ -4,7 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 // List<String> Values = Tags, Genre, Style
 // List<DiscogsTrack> Value = Tracklist
@@ -16,8 +20,8 @@ public class JoinedAlbumUserAlbumDTO {
     private String tags;
     private int albumAlbumid;
     private String artist;
-    private String genre;
-    private String style;
+    private List<String> genre;
+    private List<String> style;
     private String thumbnail;
     private String title;
     private String tracklist;
@@ -52,19 +56,26 @@ public class JoinedAlbumUserAlbumDTO {
     // Split Genre & Style into a list
     // TESTING FOR NOW
     // Real object may be of type `java.sql.Array` -- need to convert
-    public void TESTconverToList() {
-        String testStr = "{\"Indie Rock\",\"Classical\",\"Hip-Hop\",\"Country\"}";
-        String splitSequence = "\",\"";
-        String splitValues[] = testStr.split(splitSequence);
-        for (String index : splitValues) {
-            System.out.println(index);
+    public List<String> sqlArrayToListConverter(java.sql.Array sqlArray) throws SQLException {
+        try{
+            List<String> convertedList;
+            return convertedList = Arrays.asList((String[]) sqlArray.getArray());
+        } catch (SQLException e){
+            return Collections.emptyList();
         }
+
+//        String testStr = "{\"Indie Rock\",\"Classical\",\"Hip-Hop\",\"Country\"}";
+//        String splitSequence = "\",\"";
+//        String splitValues[] = testStr.split(splitSequence);
+//        for (String index : splitValues) {
+//            System.out.println(index);
+//        }
     }
 
     public JoinedAlbumUserAlbumDTO(int userAlbumid, String userid, String notes,
                                    String status, String tags, int albumAlbumid,
-                                   String artist, String genre, String style, String thumbnail,
-                                   String title, String tracklist, int year) {
+                                   String artist, java.sql.Array genre, java.sql.Array style, String thumbnail,
+                                   String title, String tracklist, int year) throws SQLException {
         this.userAlbumid = userAlbumid;
         this.userid = userid;
         this.notes = notes;
@@ -72,8 +83,8 @@ public class JoinedAlbumUserAlbumDTO {
         this.tags = tags;
         this.albumAlbumid = albumAlbumid;
         this.artist = artist;
-        this.genre = genre;
-        this.style = style;
+        this.genre = sqlArrayToListConverter(genre);
+        this.style = sqlArrayToListConverter(style);
         this.thumbnail = thumbnail;
         this.title = title;
         this.tracklist = tracklist;
@@ -136,19 +147,19 @@ public class JoinedAlbumUserAlbumDTO {
         this.artist = artist;
     }
 
-    public String getGenre() {
+    public List<String> getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(List<String> genre) {
         this.genre = genre;
     }
 
-    public String getStyle() {
+    public List<String> getStyle() {
         return style;
     }
 
-    public void setStyle(String style) {
+    public void setStyle(List<String> style) {
         this.style = style;
     }
 
