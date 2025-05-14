@@ -17,14 +17,14 @@ public class JoinedAlbumUserAlbumDTO {
     private String userid;
     private String notes;
     private String status;
-    private String tags;
+    private List<String> tags;
     private int albumAlbumid;
     private String artist;
     private List<String> genre;
     private List<String> style;
     private String thumbnail;
     private String title;
-    private String tracklist;
+    private List<DiscogsTrack> tracklist;
     private int year;
 
     @Override
@@ -48,46 +48,29 @@ public class JoinedAlbumUserAlbumDTO {
 
     // May need to use StringEscapeUtils.unescapeJson) to remove escaped quotes - verify
     // Implement null checker
-    public List<DiscogsTrack> convertTracklist(String tracklist) throws JsonProcessingException {
+    public List<DiscogsTrack> parseTracklist(String tracklist) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(tracklist, new TypeReference<List<DiscogsTrack>>() {});
     }
 
-    // Split Genre & Style into a list
-    // TESTING FOR NOW
-    // Real object may be of type `java.sql.Array` -- need to convert
-    public List<String> sqlArrayToListConverter(java.sql.Array sqlArray) throws SQLException {
-        try{
-            List<String> convertedList;
-            return convertedList = Arrays.asList((String[]) sqlArray.getArray());
-        } catch (SQLException e){
-            return Collections.emptyList();
-        }
-
-//        String testStr = "{\"Indie Rock\",\"Classical\",\"Hip-Hop\",\"Country\"}";
-//        String splitSequence = "\",\"";
-//        String splitValues[] = testStr.split(splitSequence);
-//        for (String index : splitValues) {
-//            System.out.println(index);
-//        }
-    }
 
     public JoinedAlbumUserAlbumDTO(int userAlbumid, String userid, String notes,
-                                   String status, String tags, int albumAlbumid,
-                                   String artist, java.sql.Array genre, java.sql.Array style, String thumbnail,
-                                   String title, String tracklist, int year) throws SQLException {
+                                   String status, String[] tags, int albumAlbumid,
+                                   String artist, String[] genre, String[] style, String thumbnail,
+                                   String title, String tracklist, int year) throws JsonProcessingException {
         this.userAlbumid = userAlbumid;
         this.userid = userid;
         this.notes = notes;
         this.status = status;
-        this.tags = tags;
+        this.tags = Arrays.asList(tags);
         this.albumAlbumid = albumAlbumid;
         this.artist = artist;
-        this.genre = sqlArrayToListConverter(genre);
-        this.style = sqlArrayToListConverter(style);
+        this.genre = Arrays.asList(genre);
+        this.style = Arrays.asList(style);
         this.thumbnail = thumbnail;
         this.title = title;
-        this.tracklist = tracklist;
+        //this.tracklist = tracklist;
+        this.tracklist = parseTracklist(tracklist);
         this.year = year;
     }
 
@@ -123,11 +106,11 @@ public class JoinedAlbumUserAlbumDTO {
         this.status = status;
     }
 
-    public String getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
@@ -179,11 +162,11 @@ public class JoinedAlbumUserAlbumDTO {
         this.title = title;
     }
 
-    public String getTracklist() {
+    public List<DiscogsTrack> getTracklist() {
         return tracklist;
     }
 
-    public void setTracklist(String tracklist) {
+    public void setTracklist(List<DiscogsTrack> tracklist) {
         this.tracklist = tracklist;
     }
 
