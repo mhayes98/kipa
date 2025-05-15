@@ -56,10 +56,10 @@ public class UserAlbumController {
 
     @GetMapping("/debug/{username}")
     public void debugSavedAlbumReturnData(@PathVariable String username) {
-        List<JoinedAlbumUserAlbumDTO> testing = service.getMySavedAlbums(username);
+        List<JoinedAlbumUserAlbumDTO> albumList = service.getMySavedAlbums(username);
         int counter = 1;
         // Cycle through each Album retrieved, then cycle through each Track per Album
-        for (JoinedAlbumUserAlbumDTO album : testing) {
+        for (JoinedAlbumUserAlbumDTO album : albumList) {
             System.out.println("\n\n_____________________________\n" +
                     "Album #" + counter + ": " + album.getTitle() + " by " + album.getArtist() +
                     "\n_____________________________");
