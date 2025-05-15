@@ -62,12 +62,4 @@ public class UserAlbumService {
         return userAlbumRepo.findAlbumsByUser(username);
     }
 
-    public void debugServiceMethod() {
-        List<Object[]> rows = userAlbumRepo.debugQuery();
-        for (Object[] row : rows) {
-            for (int i = 0; i < row.length; i++) {
-                System.out.println("Column " + i + " = " + row[i] + " (" + row[i].getClass().getName() + ")");
-            }
-        }
-    }
 }
