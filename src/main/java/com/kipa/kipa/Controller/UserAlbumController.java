@@ -1,6 +1,7 @@
 package com.kipa.kipa.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.kipa.kipa.Model.DiscogsTrack;
 import com.kipa.kipa.Model.JoinedAlbumUserAlbumDTO;
 import com.kipa.kipa.Model.UserAlbumDTO;
 import com.kipa.kipa.Model.UserAlbumStatusRequest;
@@ -50,20 +51,23 @@ public class UserAlbumController {
 
     @GetMapping("/user-albums/{username}")
     public void getMySavedAlbums(@PathVariable String username) {
-        //System.out.println(service.getMySavedAlbums(username));
         List<JoinedAlbumUserAlbumDTO> testing = service.getMySavedAlbums(username);
-        int counter = 0;
-        for (JoinedAlbumUserAlbumDTO x : testing) {
-            System.out.println("\n\n___________TESTING_____________");
-            // Displays first song from each album - Needs fixed
-            System.out.println("TRACK #" + counter + "  --->  " + x.getTracklist().get(0).gettrackName() + " : " + x.getTracklist().get(0).getDuration());
-            System.out.println("___________TESTING_____________\n\n");
-            counter++;
-        }
     }
 
-    @GetMapping("/debug")
-    public void getRawQueryResults() {
-        service.debugServiceMethod();
+    @GetMapping("/debug/{username}")
+    public void debugSavedAlbumReturnData(@PathVariable String username) {
+        List<JoinedAlbumUserAlbumDTO> testing = service.getMySavedAlbums(username);
+        int counter = 1;
+        // Cycle through each Album retrieved, then cycle through each Track per Album
+        for (JoinedAlbumUserAlbumDTO x : testing) {
+            System.out.println("\n\n_____________________________\n" +
+                    "Album #" + counter + ": " + x.getTitle() + " by " + x.getArtist() +
+                    "\n_____________________________");
+            for (DiscogsTrack trackName : x.getTracklist()) {
+                System.out.println("\n" + trackName.gettrackName() + " : " + trackName.getDuration());
+            }
+            System.out.println("\n\n_____________END________________");
+            counter++;
+        }
     }
 }
