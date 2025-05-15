@@ -59,11 +59,11 @@ public class UserAlbumController {
         List<JoinedAlbumUserAlbumDTO> testing = service.getMySavedAlbums(username);
         int counter = 1;
         // Cycle through each Album retrieved, then cycle through each Track per Album
-        for (JoinedAlbumUserAlbumDTO x : testing) {
+        for (JoinedAlbumUserAlbumDTO album : testing) {
             System.out.println("\n\n_____________________________\n" +
-                    "Album #" + counter + ": " + x.getTitle() + " by " + x.getArtist() +
+                    "Album #" + counter + ": " + album.getTitle() + " by " + album.getArtist() +
                     "\n_____________________________");
-            for (DiscogsTrack trackName : x.getTracklist()) {
+            for (DiscogsTrack trackName : album.getTracklist()) {
                 System.out.println("\n" + trackName.gettrackName() + " : " + trackName.getDuration());
             }
             System.out.println("\n\n_____________END________________");
