@@ -37,6 +37,9 @@ public class UserAlbum {
 
     public UserAlbum() {}
 
+    public UserAlbum(UserAlbumID userAlbumID, String status, List<String> tags, String notes) {
+    }
+
     public UserAlbumID getId() {
         return id;
     }
