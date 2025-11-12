@@ -25,8 +25,8 @@ public class UserAlbumController {
     @Autowired
     AlbumService albumService;
 
-    @PostMapping("/user-album")
-    public void editTags(@RequestBody UserAlbumDTO userAlbumDTO) throws JsonProcessingException {
+    @PostMapping("/useralbum-save")
+    public void saveUserAlbum(@RequestBody UserAlbumDTO userAlbumDTO) throws JsonProcessingException {
         if(albumRepo.findAlbumByAlbumID(userAlbumDTO.getAlbum().getAlbumID()) == null) {
             userAlbumDTO.getAlbum().convertArrayToRawJson();
             albumService.addAlbum(userAlbumDTO.getAlbum());
@@ -50,10 +50,11 @@ public class UserAlbumController {
     }
 
     @GetMapping("/user-albums/{username}")
-    public void getMySavedAlbums(@PathVariable String username) {
-        List<JoinedAlbumUserAlbumDTO> testing = service.getMySavedAlbums(username);
+    public List<JoinedAlbumUserAlbumDTO> getMySavedAlbums(@PathVariable String username) {
+        return service.getMySavedAlbums(username);
     }
 
+    // Debugging function to output the DB pull of a specific users UserAlbums
     @GetMapping("/debug/{username}")
     public void debugSavedAlbumReturnData(@PathVariable String username) {
         List<JoinedAlbumUserAlbumDTO> albumList = service.getMySavedAlbums(username);
