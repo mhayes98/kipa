@@ -26,6 +26,32 @@ public class Album {
 
     public Album() {}
 
+    public Album(String tracklist, String thumbnail, List<String> style, List<String> genre, int year, String artist, String title, Integer albumID) {
+        this.tracklist = tracklist;
+        this.thumbnail = thumbnail;
+        this.style = style;
+        this.genre = genre;
+        this.year = year;
+        this.artist = artist;
+        this.title = title;
+        this.albumID = albumID;
+    }
+
+    public Album(String title, String artist, int year, List<String> genre, List<String> style, String thumbnail) {
+    }
+
+    public Album(Integer albumID, String title, String artist, int year, List<String> genre, List<String> style, String thumbnail, List<DiscogsTrack> tracklistAsArray) throws JsonProcessingException {
+        this.albumID = albumID;
+        this.title = title;
+        this.artist = artist;
+        this.year = year;
+        this.genre = genre;
+        this.style = style;
+        this.thumbnail = thumbnail;
+        this.tracklistAsArray = tracklistAsArray;
+        convertArrayToRawJson();
+    }
+
     // Tracklist is received as an array, this function will convert that array to a raw JSON string to be stored in the database
     // The tracklist will only be displayed in the front end. This setup will need to be adjusted if interaction with the tracklist is ever implemented.
     public void convertArrayToRawJson() throws JsonProcessingException {
