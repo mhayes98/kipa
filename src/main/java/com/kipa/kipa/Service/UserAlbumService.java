@@ -1,5 +1,6 @@
 package com.kipa.kipa.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kipa.kipa.Model.*;
 import com.kipa.kipa.Repo.AlbumRepository;
 import com.kipa.kipa.Repo.UserAlbumRepository;
