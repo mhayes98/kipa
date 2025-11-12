@@ -27,6 +27,8 @@ public class JoinedAlbumUserAlbumDTO {
     private List<DiscogsTrack> tracklist;
     private int year;
 
+    // NOTE - PRETTY SURE THIS IS UNUSED
+
     @Override
     public String toString() {
         return "JoinedUserAlbumDTO{" +
