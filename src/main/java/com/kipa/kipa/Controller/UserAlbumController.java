@@ -1,17 +1,16 @@
 package com.kipa.kipa.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.kipa.kipa.Model.DiscogsTrack;
-import com.kipa.kipa.Model.JoinedAlbumUserAlbumDTO;
-import com.kipa.kipa.Model.UserAlbumDTO;
-import com.kipa.kipa.Model.UserAlbumStatusRequest;
+import com.kipa.kipa.Model.*;
 import com.kipa.kipa.Repo.AlbumRepository;
+import com.kipa.kipa.Repo.UserAlbumRepository;
 import com.kipa.kipa.Service.AlbumService;
 import com.kipa.kipa.Service.UserAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -24,6 +23,9 @@ public class UserAlbumController {
     AlbumRepository albumRepo;
     @Autowired
     AlbumService albumService;
+    @Autowired
+    UserAlbumRepository userAlbumRepo;
+
 
     @PostMapping("/useralbum-save")
     public void saveUserAlbum(@RequestBody UserAlbumDTO userAlbumDTO) throws JsonProcessingException {
@@ -32,6 +34,21 @@ public class UserAlbumController {
             albumService.addAlbum(userAlbumDTO.getAlbum());
         }
         service.addUserAlbum(userAlbumDTO.getUserAlbum());
+    }
+
+    @GetMapping("/{userID}/{albumID}")
+    public UserAlbumDTO getUserAlbum(@PathVariable String userID, @PathVariable Integer albumID) {
+        UserAlbumDTO response = new UserAlbumDTO();
+
+        Optional<UserAlbum> userAlbum = userAlbumRepo.findByIdUserIDAndIdAlbumID(userID, albumID);
+        Album album = albumRepo.findAlbumByAlbumID(albumID);
+
+        userAlbum.ifPresent(u -> {
+            response.setUserAlbum(u);
+            response.setAlbum(album);
+        });
+
+        return response;
     }
 
     @PostMapping("/status")
