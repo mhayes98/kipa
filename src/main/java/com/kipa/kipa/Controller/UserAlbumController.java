@@ -7,6 +7,7 @@ import com.kipa.kipa.Repo.UserAlbumRepository;
 import com.kipa.kipa.Service.AlbumService;
 import com.kipa.kipa.Service.UserAlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class UserAlbumController {
 
     @Autowired
-    UserAlbumService service;
+    UserAlbumService userAlbumService;
 
     @Autowired
     AlbumRepository albumRepo;
@@ -33,8 +34,14 @@ public class UserAlbumController {
             userAlbumDTO.getAlbum().convertArrayToRawJson();
             albumService.addAlbum(userAlbumDTO.getAlbum());
         }
-        service.addUserAlbum(userAlbumDTO.getUserAlbum());
+        userAlbumService.addUserAlbum(userAlbumDTO.getUserAlbum());
     }
+
+    @PutMapping("/useralbum-update")
+    public void updateUserAlbum(@RequestBody UserAlbum userAlbum) throws JsonProcessingException {
+        userAlbumService.addUserAlbum(userAlbum);
+    }
+
 
     @GetMapping("/{userID}/{albumID}")
     public UserAlbumDTO getUserAlbum(@PathVariable String userID, @PathVariable Integer albumID) {
@@ -53,28 +60,28 @@ public class UserAlbumController {
 
     @PostMapping("/status")
     public void editStatus(@RequestBody UserAlbumStatusRequest userAlbumStatusRequest) {
-        service.editStatus(userAlbumStatusRequest);
+        userAlbumService.editStatus(userAlbumStatusRequest);
     }
 
     @PutMapping("/tag")
     public void editTags(@RequestBody UserAlbumStatusRequest userAlbumStatusRequest) {
-        service.editTags(userAlbumStatusRequest);
+        userAlbumService.editTags(userAlbumStatusRequest);
     }
 
     @PutMapping("/notes")
     public void editNotes(@RequestBody UserAlbumStatusRequest userAlbumStatusRequest) {
-        service.editNotes(userAlbumStatusRequest);
+        userAlbumService.editNotes(userAlbumStatusRequest);
     }
 
     @GetMapping("/user-albums/{username}")
     public List<JoinedAlbumUserAlbumDTO> getMySavedAlbums(@PathVariable String username) {
-        return service.getMySavedAlbums(username);
+        return userAlbumService.getMySavedAlbums(username);
     }
 
     // Debugging function to output the DB pull of a specific users UserAlbums
     @GetMapping("/debug/{username}")
     public void debugSavedAlbumReturnData(@PathVariable String username) {
-        List<JoinedAlbumUserAlbumDTO> albumList = service.getMySavedAlbums(username);
+        List<JoinedAlbumUserAlbumDTO> albumList = userAlbumService.getMySavedAlbums(username);
         int counter = 1;
         // Cycle through each Album retrieved, then cycle through each Track per Album
         for (JoinedAlbumUserAlbumDTO album : albumList) {
